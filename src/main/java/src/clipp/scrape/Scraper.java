@@ -69,7 +69,7 @@ public class Scraper {
 
 
   public List<WeeklyItem> scrapeHMart() throws Exception {
-    System.setProperty( "webdriver.chrome.driver", "/Users/mosnterios/Projects/Library/drivers/chromedriver" );
+    System.setProperty( "webdriver.chrome.driver", System.getProperty( "user.dir" ) + "/library/drivers/chromedriver" );
     WebDriver driver = new ChromeDriver();
 
     driver.navigate().to( "https://www.hmartus.com/product-category/weekly-sale-item-list-wa" );
