@@ -20,9 +20,16 @@ public class ItemSearcher {
     String[] searchWords = searchParam.split( " " );
 
     for ( WeeklyItem item : itemList ) {
+      boolean isMatch = false;
       for ( String word : searchWords ) {
-        if ( item.getNameList().contains( word ) ) {
-          resultList.add(item);
+        for ( String itemWord : item.getNameList() ) {
+          if ( itemWord.contains( word ) ) {
+            resultList.add(item);
+            isMatch = true;
+            break;
+          }
+        }
+        if ( isMatch ) {
           break;
         }
       }
