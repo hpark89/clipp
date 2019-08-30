@@ -1,32 +1,34 @@
 package src.clipp.scrape;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class WeeklyItem {
 
-  private String category;
+  private String categoryName;
   private long amount;
   private List<String> nameList;
-  private String name;
+  private String brandName;
+  private String productName;
   private String storeName;
 
-  // create a way to set the category automatically if we do not know the category;
-  public WeeklyItem( String name, long amount, String storeName ) {
-    this.name = name;
-    this.amount = amount;
-    this.storeName = storeName;
-    this.nameList = Arrays.asList( name.split( " " ) );
+  // set to DateTime?
+  private String validDateRange;
 
-    this.category = "N/A";
-  }
 
-  public WeeklyItem( String name, long amount, String category, String storeName ) {
-    this.name = name;
+  public WeeklyItem( String productName, String brandName, long amount, String categoryName, String validDateRange, String storeName ) {
+    this.productName = productName;
+    this.brandName = brandName;
     this.amount = amount;
-    this.category = category;
+    this.categoryName = categoryName;
+    this.validDateRange = validDateRange;
     this.storeName = storeName;
-    this.nameList = Arrays.asList( name.split( " " ) );
+
+    this.nameList = Arrays.asList( productName.split( " " ) );
+
+    //TODO: fix this
+    //nameList.addAll( new ArrayList<>( Arrays.asList( brandName.split( " " )  ) ) );
   }
 
   public List<String> getNameList() {
@@ -34,7 +36,7 @@ public class WeeklyItem {
   }
 
   public String getFullInfo() {
-    return this.name + "::" + this.amount + "::" + this.category + "::" + this.storeName;
+    return this.productName + "::" + this.amount + "::" + this.categoryName + "::" + this.storeName;
   }
 
 

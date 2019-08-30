@@ -23,7 +23,7 @@ public class ItemSearcher {
       boolean isMatch = false;
       for ( String word : searchWords ) {
         for ( String itemWord : item.getNameList() ) {
-          if ( itemWord.contains( word ) ) {
+          if ( itemWord.toUpperCase().contains( word.toUpperCase() ) ) {
             resultList.add(item);
             isMatch = true;
             break;
