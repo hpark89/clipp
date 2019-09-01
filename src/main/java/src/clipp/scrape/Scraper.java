@@ -25,7 +25,7 @@ public class Scraper {
 
   public static void main( String[] args ) throws Exception {
     Scraper sc = new Scraper();
-    List<WeeklyItem> list = sc.scrapeWholeFoods();
+    List<WeeklyItem> list = sc.scrapePCC();
     ItemSearcher itemSearcher = new ItemSearcher( list );
 
     System.out.println( "start search" );
@@ -72,6 +72,44 @@ public class Scraper {
 
 
   public Scraper() {
+  }
+
+  public List<WeeklyItem> scrapePCC() throws Exception {
+    System.setProperty( "webdriver.chrome.driver", System.getProperty( "user.dir" ) + "/library/drivers/chromedriver" );
+    ChromeOptions options = new ChromeOptions();
+    options.addArguments( "--headless" );
+
+    WebDriver driver = new ChromeDriver( options );
+    driver.navigate().to( "https://www.pccmarkets.com/departments/weekly-specials/" );
+    new WebDriverWait( driver, 10 ).until( ExpectedConditions
+        .visibilityOfElementLocated( By.xpath( "//section[contains(@class, 'pcc-promo-section')]" ) ) );
+    //scrape the date range first b/c its available at the top and applies to all items.
+    // does not have location specific sale items. All WA stores. only has WA stores.
+    String validDates = driver.findElement( By.xpath( "//section[contains(@class, 'pcc-promo-section')]" ) ).getText();
+
+    List<WebElement> elWeeklyItems = driver.findElements( By
+        .xpath( "//div[contains(@class, 'pcc-weekly-special') and @data-js='weekly-special']" ) );
+
+    List<WeeklyItem> resultList = new ArrayList<WeeklyItem>();
+    for ( WebElement el : elWeeklyItems ) {
+//    for ( int i=0; i < elWeeklyItems.size(); i++ ) {
+//      WebElement el = elWeeklyItems.get( i );
+      String productInfo = el.getAttribute( "data-filterable" );
+
+      String brandName = "";
+      List<WebElement> elBrandNameList =  el.findElements( By.xpath( "//div[@class='pcc-weekly-special-label']" ) );
+      if ( elBrandNameList.size() == 1 ) {
+        brandName =  elBrandNameList.get( 0 ).getText();
+      }
+
+      String productName = el.findElement( By.xpath( "//h3[@class='h5 pcc-weekly-special-headline']" ) ).getText();
+      List<WebElement> elPrices = el.findElements( By.xpath( "//div[contains(@class, 'pcc-weekly-special-block-price')]" ) );
+//      for ( WebElement e : elPrices ) {
+//        System.out.println( e.getText() );
+//      }
+    }
+
+    return resultList;
   }
 
 
@@ -134,6 +172,7 @@ public class Scraper {
       }
 
     }
+    driver.close();
 
     return resultList;
   }
