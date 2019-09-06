@@ -6,7 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -17,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 
@@ -83,30 +81,58 @@ public class Scraper {
     driver.navigate().to( "https://www.pccmarkets.com/departments/weekly-specials/" );
     new WebDriverWait( driver, 10 ).until( ExpectedConditions
         .visibilityOfElementLocated( By.xpath( "//section[contains(@class, 'pcc-promo-section')]" ) ) );
+
+    List<WeeklyItem> resultList = new ArrayList<WeeklyItem>();
+
     //scrape the date range first b/c its available at the top and applies to all items.
     // does not have location specific sale items. All WA stores. only has WA stores.
     String validDates = driver.findElement( By.xpath( "//section[contains(@class, 'pcc-promo-section')]" ) ).getText();
 
-    List<WebElement> elWeeklyItems = driver.findElements( By
-        .xpath( "//div[contains(@class, 'pcc-weekly-special') and @data-js='weekly-special']" ) );
+    //WebElement mainSection = driver.findElement( By.xpath( "//div[@class='weekly-specials-template' and @data-js='weekly-specials-template']" ) );
 
-    List<WeeklyItem> resultList = new ArrayList<WeeklyItem>();
-    for ( WebElement el : elWeeklyItems ) {
-//    for ( int i=0; i < elWeeklyItems.size(); i++ ) {
-//      WebElement el = elWeeklyItems.get( i );
-      String productInfo = el.getAttribute( "data-filterable" );
+    System.out.println( "getting product info ( categories )" );
+    List<String> productInfoList = driver.findElements( By.xpath( "//div[@data-js='weekly-special']" ) )
+        .stream().map( x -> x.getAttribute("data-filterable") ).collect( Collectors.toList() );
+    System.out.println( "product Info: " + productInfoList.size() );
 
-      String brandName = "";
-      List<WebElement> elBrandNameList =  el.findElements( By.xpath( "//div[@class='pcc-weekly-special-label']" ) );
-      if ( elBrandNameList.size() == 1 ) {
-        brandName =  elBrandNameList.get( 0 ).getText();
+    System.out.println( "getting brand Names");
+    List<String> brandNameList =  driver.findElements( By.xpath( "//div[@class='pcc-weekly-special-label']" ) )
+        .stream().map( x -> x.getAttribute( "innerHTML" ) ).collect( Collectors.toList() );
+    System.out.println( "brand names: " + brandNameList.size() );
+
+    System.out.println( "getting product name list" );
+    List<String> productNameList = driver.findElements( By.xpath( "//h3[@class='h5 pcc-weekly-special-headline']" ) )
+        .stream().map( x -> x.getAttribute( "innerHTML" ) ).collect( Collectors.toList() );
+    System.out.println( "product name list: " + productNameList.size() );
+
+    System.out.println( "getting sale price list" );
+    List<String> salePriceList = driver.findElements( By.xpath( "//div[contains(@class, 'pcc-weekly-special-block-price')]" ) )
+        .stream().map( x -> x.getAttribute( "innerHTML" ) ).collect( Collectors.toList() );
+    System.out.println( "price list: " + salePriceList.size() );
+//    TODO: having trouble getting all the footer where they do not have one. only getting <total amount. need = total amount.
+//    System.out.println( "getting extra footer info list" );
+//    List<String> footInfoList = driver.findElements( By.xpath( "//div[@class='card-footer pcc-weekly-special-footer']" ) )
+//        .stream().map( x -> x.getAttribute( "innerHTML" ) ).collect( Collectors.toList() );
+//    System.out.println( "footer info: " + footInfoList.size() );
+
+    //do some sort of verification that all the sizes are the same. ( currently it will throw and out of bounds array
+    // exception.
+    for ( int i=0; i<productNameList.size(); i++ ) {
+      //TODO: parse the string amount correctly there are "2/$5", "$1.69", "99Â¢", "no <strong>", "15% off"
+      Long salePrice = 0l;
+      String priceRaw = salePriceList.get( i );
+      if ( priceRaw.contains( "<strong>" ) ) {
+        String salePriceWCarrots = priceRaw.split( "strong" )[1];
+        String cleanPrice = salePriceWCarrots.substring( 1, salePriceWCarrots.length() - 2 );
+
+        if ( salePriceWCarrots.contains( "% off" ) || salePriceWCarrots.contains( "\\$" ) ) {
+          salePrice = -1l;
+        }
+        else {
+          salePrice = parseToLong( cleanPrice );
+        }
       }
-
-      String productName = el.findElement( By.xpath( "//h3[@class='h5 pcc-weekly-special-headline']" ) ).getText();
-      List<WebElement> elPrices = el.findElements( By.xpath( "//div[contains(@class, 'pcc-weekly-special-block-price')]" ) );
-//      for ( WebElement e : elPrices ) {
-//        System.out.println( e.getText() );
-//      }
+      resultList.add( new WeeklyItem( productNameList.get( i ), brandNameList.get( i ), brandNameList.get( i ), , salePrice, "PCC", validDates) );
     }
 
     return resultList;
@@ -136,8 +162,8 @@ public class Scraper {
       Thread.sleep( 3000 );
 
       // scroll to very bottom until there is no more wait.
-      int numOfItems = Integer.parseInt( driver.findElement( By.xpath( "//div[contains(@class, 'FilterTags-ResultsLabel-')]" ) )
-          .getText().replaceAll( "[^x0-9]", "" ) );
+      Long numOfItems = parseToLong( driver.findElement( By.xpath( "//div[contains(@class, 'FilterTags-ResultsLabel-')]" ) )
+          .getText() );
 
       JavascriptExecutor jse = ( JavascriptExecutor ) driver;
 
@@ -162,13 +188,13 @@ public class Scraper {
 
         String productName = info.split( hasBrand ? "by" : "On Sale" )[0].trim();
         String brandName = hasBrand ? info.split( "by" )[1].split( "On Sale" )[0] : "";
-        Long salePrice = Long.parseLong( info.split( "On Sale" )[1].split( "Old Price" )[0].replaceAll( "[^x0-9]", "" ) );
-        Long regPrice = Long.parseLong( info.split( "Old Price" )[1].split( "Valid" )[0].replaceAll( "[^x0-9]", "" ) );
+        Long salePrice = parseToLong( info.split( "On Sale" )[1].split( "Old Price" )[0] );
+        Long regPrice = parseToLong( info.split( "Old Price" )[1].split( "Valid" )[0] );
         String validDates = info.split( "Valid" )[1];
 
         // they sometimes just have a single number to show the amount of dollars.
         if ( salePrice < 10 ) salePrice *= 100;
-        resultList.add( new WeeklyItem( productName, brandName, salePrice, categoryName, validDates, "WHOLEFOODS" ) );
+        resultList.add( new WeeklyItem( productName, brandName, categoryName, , salePrice, "WHOLEFOODS", validDates) );
       }
 
     }
@@ -318,21 +344,21 @@ public class Scraper {
 
     boolean finishedLastPage = false;
     int pageNumber = 1;
-    List<WeeklyItem> itemList = new ArrayList<WeeklyItem>();
+    List<WeeklyItem> itemList = new ArrayList<>();
 
     while ( !finishedLastPage ) {
 
       List<WebElement> elemItemList = driver.findElements( By.className( "product-title" ) );
       List<WebElement> elemPriceList = driver.findElements( By.className( "shop_price_lightbox_holder" ) );
 
-      List<String> names = new ArrayList<String>();
+      List<String> names = new ArrayList<>();
       for ( WebElement elemItem : elemItemList ) {
         names.add( elemItem.getText().split( Pattern.quote("|" ) )[0].toLowerCase() );
       }
 
-      List<Integer> amounts = new ArrayList<Integer>();
+      List<Long> amounts = new ArrayList<>();
       for ( WebElement elemPrice : elemPriceList ) {
-        amounts.add( Integer.parseInt( elemPrice.getText().replaceAll( "[^x0-9]", "" ) ) );
+        amounts.add( parseToLong( elemPrice.getText() ) );
       }
 
       for ( int i=0; i < names.size(); i++ ) {
@@ -360,5 +386,14 @@ public class Scraper {
     return itemList;
   }
 
+
+  // Helpers
+
+  /**
+   * removes all characters except digits and then parses to a Long ( positive only ).
+   */
+  Long parseToLong( String priceAmount ) {
+    return Long.parseLong( priceAmount.replaceAll( "[^x0-9]", "" ) );
+  }
 
 }

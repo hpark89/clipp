@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eb3b2103-99b8-4c8a-a2bb-05a9c786870e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/src/clipp/scrape/Scraper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/clipp/scrape/Scraper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/src/clipp/scrape/WeeklyItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/clipp/scrape/WeeklyItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/src/clipp/scrape/Scraper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/src/clipp/scrape/Scraper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/src/clipp/scrape/WeeklyItem.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/src/clipp/scrape/WeeklyItem.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -17,14 +21,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/src/clipp/scrape/Scraper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="99" column="57" selection-start-line="99" selection-start-column="57" selection-end-line="99" selection-end-column="57" />
+            <state relative-caret-position="1770">
+              <caret line="134" column="32" selection-start-line="134" selection-start-column="32" selection-end-line="134" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2962#2974#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -39,15 +42,13 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/src/clipp/scrape/WeeklyItem.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="27" selection-start-line="27" selection-end-line="27" />
+            <state relative-caret-position="345">
+              <caret line="23" column="3" selection-start-line="23" selection-start-column="3" selection-end-line="23" selection-end-column="3" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#871#872#0" expanded="true" />
-                <element signature="e#896#897#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -56,7 +57,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/src/clipp/scrape/ItemSearcher.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
+            <state relative-caret-position="360">
               <caret line="29" column="11" selection-start-line="29" selection-start-column="11" selection-end-line="29" selection-end-column="11" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -83,8 +84,8 @@
         <option value="$PROJECT_DIR$/src/main/java/src/flipp/scrape/Scraper.java" />
         <option value="$PROJECT_DIR$/src/main/java/src/clipp/scrape/ItemSearcher.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/src/clipp/scrape/WeeklyItem.java" />
         <option value="$PROJECT_DIR$/src/main/java/src/clipp/scrape/Scraper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/src/clipp/scrape/WeeklyItem.java" />
       </list>
     </option>
   </component>
@@ -95,10 +96,9 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="23" />
+  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
     <option name="width" value="1680" />
-    <option name="height" value="946" />
+    <option name="height" value="1050" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -106,7 +106,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -144,6 +143,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -217,17 +217,20 @@
       <workItem from="1566457987434" duration="8536000" />
       <workItem from="1566504838471" duration="3218000" />
       <workItem from="1566967448638" duration="23839000" />
-      <workItem from="1567121847358" duration="16847000" />
+      <workItem from="1567121847358" duration="27335000" />
+      <workItem from="1567631759861" duration="1000" />
+      <workItem from="1567739310632" duration="391000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="52440000" />
+    <option name="totallyTimeSpent" value="63320000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1680" height="946" extended-state="6" />
+    <frame x="0" y="0" width="1920" height="1080" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21916972" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19542067" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -237,16 +240,16 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32918552" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49939024" weight="0.35746607" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.498779" weight="0.4180328" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.4981685" visible="true" weight="0.32959184" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="8" sideWeight="0.4993895" visible="true" weight="0.3290398" />
+      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.4993895" weight="0.3290398" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.32881355" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50061053" side_tool="true" visible="true" weight="0.3290398" />
-      <window_info anchor="bottom" id="Messages" order="12" weight="0.3280543" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50183153" side_tool="true" weight="0.4180328" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.327551" />
       <window_info anchor="bottom" id="Reviews" order="13" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -301,33 +304,44 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/src/clipp/scrape/Scraper.java</url>
-          <line>212</line>
+          <line>238</line>
           <properties />
           <option name="timeStamp" value="40" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/src/clipp/scrape/Scraper.java</url>
-          <line>194</line>
+          <line>220</line>
           <properties />
           <option name="timeStamp" value="42" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/src/clipp/scrape/Scraper.java</url>
-          <line>182</line>
+          <line>208</line>
           <properties />
           <option name="timeStamp" value="43" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/src/clipp/scrape/Scraper.java</url>
-          <line>105</line>
+          <line>137</line>
           <properties />
-          <option name="timeStamp" value="56" />
+          <option name="timeStamp" value="61" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/src/clipp/scrape/Scraper.java</url>
+          <line>134</line>
+          <properties />
+          <option name="timeStamp" value="63" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="setValue">
+      <expression>
+        <expression-string>&quot;\n                                            &lt;p class=\&quot;pcc-weekly-special-price\&quot;&gt;\n                            &lt;strong&gt;99Â¢&lt;/strong&gt;\n                            6 oz                        &lt;/p&gt;\n                                        &lt;p class=\&quot;pcc-weekly-special-price\&quot;&gt;\n                                                    Reg.                             $1.09                                                                                                    &lt;/p&gt;\n                &quot;</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>&quot;/product/organic-walla-walla-sweet-onion-f769f5&quot;</expression-string>
         <language-id>JAVA</language-id>
@@ -336,10 +350,10 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/src/clipp/scrape/ItemSearcher.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/src/clipp/scrape/Scraper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="29" column="11" selection-start-line="29" selection-start-column="11" selection-end-line="29" selection-end-column="11" />
+        <state relative-caret-position="1770">
+          <caret line="134" column="32" selection-start-line="134" selection-start-column="32" selection-end-line="134" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -353,25 +367,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/src/clipp/scrape/WeeklyItem.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/src/clipp/scrape/ItemSearcher.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="27" selection-start-line="27" selection-end-line="27" />
+        <state relative-caret-position="360">
+          <caret line="29" column="11" selection-start-line="29" selection-start-column="11" selection-end-line="29" selection-end-column="11" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#871#872#0" expanded="true" />
-            <element signature="e#896#897#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/src/clipp/scrape/Scraper.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/src/clipp/scrape/WeeklyItem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="99" column="57" selection-start-line="99" selection-start-column="57" selection-end-line="99" selection-end-column="57" />
+        <state relative-caret-position="345">
+          <caret line="23" column="3" selection-start-line="23" selection-start-column="3" selection-end-line="23" selection-end-column="3" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2962#2974#0" expanded="true" />
           </folding>
         </state>
       </provider>
