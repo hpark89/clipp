@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -23,7 +24,7 @@ public class Scraper {
 
   public static void main( String[] args ) throws Exception {
     Scraper sc = new Scraper();
-    List<WeeklyItem> list = sc.scrapePCC();
+    List<WeeklyItem> list = sc.scrapeHMart();
     ItemSearcher itemSearcher = new ItemSearcher( list );
 
     System.out.println( "start search" );
@@ -120,19 +121,22 @@ public class Scraper {
     for ( int i=0; i<productNameList.size(); i++ ) {
       //TODO: parse the string amount correctly there are "2/$5", "$1.69", "99Â¢", "no <strong>", "15% off"
       Long salePrice = 0l;
+      String salePriceNonDigit = "";
       String priceRaw = salePriceList.get( i );
       if ( priceRaw.contains( "<strong>" ) ) {
         String salePriceWCarrots = priceRaw.split( "strong" )[1];
         String cleanPrice = salePriceWCarrots.substring( 1, salePriceWCarrots.length() - 2 );
 
-        if ( salePriceWCarrots.contains( "% off" ) || salePriceWCarrots.contains( "\\$" ) ) {
+        if ( cleanPrice.contains( "% off" ) || cleanPrice.contains( "\\$" ) ) {
           salePrice = -1l;
+          salePriceNonDigit = cleanPrice;
         }
         else {
           salePrice = parseToLong( cleanPrice );
+          salePriceNonDigit = salePrice.toString();
         }
       }
-      resultList.add( new WeeklyItem( productNameList.get( i ), brandNameList.get( i ), brandNameList.get( i ), , salePrice, "PCC", validDates) );
+      resultList.add( new WeeklyItem( productNameList.get( i ), brandNameList.get( i ), brandNameList.get( i ), salePriceNonDigit , salePrice, "PCC", validDates) );
     }
 
     return resultList;
@@ -194,7 +198,7 @@ public class Scraper {
 
         // they sometimes just have a single number to show the amount of dollars.
         if ( salePrice < 10 ) salePrice *= 100;
-        resultList.add( new WeeklyItem( productName, brandName, categoryName, , salePrice, "WHOLEFOODS", validDates) );
+        resultList.add( new WeeklyItem( productName, brandName, categoryName, salePrice.toString() , salePrice, "WHOLEFOODS", validDates) );
       }
 
     }
@@ -338,9 +342,10 @@ public class Scraper {
 
     WebDriver driver = new ChromeDriver( options );
 
+    System.out.println( "navigating to hmart main." );
     driver.navigate().to( "https://www.hmartus.com/product-category/weekly-sale-item-list-wa" );
-
-    Thread.sleep( 6000 );
+    new WebDriverWait( driver, 10 ).until( ExpectedConditions
+        .visibilityOfElementLocated( By.xpath( "//p[@class='woocommerce-result-count']" ) ) );
 
     boolean finishedLastPage = false;
     int pageNumber = 1;
@@ -356,18 +361,19 @@ public class Scraper {
         names.add( elemItem.getText().split( Pattern.quote("|" ) )[0].toLowerCase() );
       }
 
+      System.out.println( "getting amounts" );
       List<Long> amounts = new ArrayList<>();
       for ( WebElement elemPrice : elemPriceList ) {
         amounts.add( parseToLong( elemPrice.getText() ) );
       }
 
       for ( int i=0; i < names.size(); i++ ) {
-        //TODO: FIX LATER
-        //itemList.add( new WeeklyItem( names.get( i ), amounts.get( i ), "HMART" ) );
+        //TODO: brandNames, categoryNames, dateRange
+        itemList.add( new WeeklyItem( names.get( i ), "", "", amounts.get( i ).toString(), amounts.get( i ), "HMART", "Not Available" ) );
       }
 
 
-      WebElement itemCount = driver.findElement( By.className( "woocommerce-result-count" ) );
+      WebElement itemCount = driver.findElement( By.xpath( "//p[@class='woocommerce-result-count']" ) );
 
       String[] nums = itemCount.getText().split( " " );
       int totalItemCount = Integer.parseInt( nums[4] );
@@ -379,7 +385,8 @@ public class Scraper {
       else {
         pageNumber++;
         driver.navigate().to( "https://www.hmartus.com/product-category/weekly-sale-item-list-wa/page/" + pageNumber );
-        Thread.sleep( 6000 );
+        new WebDriverWait( driver, 10 ).until( ExpectedConditions
+            .visibilityOfElementLocated( By.xpath( "//p[@class='woocommerce-result-count']" ) ) );
       }
     }
 
@@ -393,7 +400,7 @@ public class Scraper {
    * removes all characters except digits and then parses to a Long ( positive only ).
    */
   Long parseToLong( String priceAmount ) {
-    return Long.parseLong( priceAmount.replaceAll( "[^x0-9]", "" ) );
+    return priceAmount.isEmpty() ? -1l : Long.parseLong( priceAmount.replaceAll( "[^x0-9]", "" ) );
   }
 
 }

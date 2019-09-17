@@ -7,6 +7,7 @@ public class WeeklyItem {
 
   private String categoryName;
   private long salePrice;
+  private String salePriceNonDigit;
   private List<String> nameList;
   private String brandName;
   private String productName;
@@ -20,11 +21,12 @@ public class WeeklyItem {
   private String validDateRange;
 
 
-  public WeeklyI
-  `tem(String productName, String brandName, String categoryName, String salePriceNonDigit, long salePrice, String storeName, String validDateRange) {
+  public WeeklyItem(String productName, String brandName, String categoryName, String salePriceNonDigit, long salePrice,
+                    String storeName, String validDateRange) {
     this.productName = productName;
     this.brandName = brandName;
     this.salePrice = salePrice;
+    this.salePriceNonDigit = salePriceNonDigit;
     this.categoryName = categoryName;
     this.validDateRange = validDateRange;
     this.storeName = storeName;
