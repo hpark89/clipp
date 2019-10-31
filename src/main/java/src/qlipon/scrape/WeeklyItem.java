@@ -1,4 +1,4 @@
-package src.clipp.scrape;
+package src.qlipon.scrape;
 
 import java.util.Arrays;
 import java.util.List;

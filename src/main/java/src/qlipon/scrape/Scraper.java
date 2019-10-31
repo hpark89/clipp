@@ -1,4 +1,4 @@
-package src.clipp.scrape;
+package src.qlipon.scrape;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -12,10 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.logging.Logger;
+import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -24,7 +21,7 @@ public class Scraper {
 
   public static void main( String[] args ) throws Exception {
     Scraper sc = new Scraper();
-    List<WeeklyItem> list = sc.scrapeHMart();
+    List<WeeklyItem> list = sc.scrapeWholeFoods();
     ItemSearcher itemSearcher = new ItemSearcher( list );
 
     System.out.println( "start search" );
@@ -53,7 +50,7 @@ public class Scraper {
 
 
   public void shoppingQueryLanguage() throws Exception {
-    System.out.println( "clipp the scrapper" );
+    System.out.println( "qlipon the scrapper" );
     boolean exit = false;
 
     while ( !exit ) {
