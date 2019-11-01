@@ -17,5 +17,9 @@ public class JBDCWeeklyItem {
  * primary key (`id`) );
  */
 
+/**
+ * -- insert into weekly_items ( uuid, name, brand_name, sale_price ) values ( '123dsfsd13', 'Cheetos', 'WholeFoods', 499 );
+ */
+
 
 }

@@ -15,19 +15,21 @@ public class JDBCBasicManager {
 
   public static void main( String[] args  ) throws SQLException {
 
-    try ( Connection connection = JDBCManager.getDataSource().getConnection();
-         Statement st = connection.createStatement(); ) {
+    try {
+      Connection connection = JDBCManager.getDataSource().getConnection();
+      Statement st = connection.createStatement();
 
-      String SQL = "SELECT * FROM employee_table";
+      String SQL = "SELECT * FROM weekly_items";
       ResultSet rs = st.executeQuery( SQL );
       while ( rs.next() ) {
-        int empId = rs.getInt( "employee_id" );
-        String eName = rs.getString( "employee_name" );
-        String email = rs.getString( "email" );
-        Double salary = rs.getDouble( "salary" );
-        BigDecimal bonus = rs.getBigDecimal( "bonus" );
-
-        System.out.println(empId + "\t" + eName + "\t" + salary + "\t" + email + "\t" + bonus);
+        System.out.println( rs.getString( "name" ) );
+//        int empId = rs.getInt( "employee_id" );
+//        String eName = rs.getString( "employee_name" );
+//        String email = rs.getString( "email" );
+//        Double salary = rs.getDouble( "salary" );
+//        BigDecimal bonus = rs.getBigDecimal( "bonus" );
+//
+//        System.out.println(empId + "\t" + eName + "\t" + salary + "\t" + email + "\t" + bonus);
       }
     } catch (Exception e) {
       e.printStackTrace();
