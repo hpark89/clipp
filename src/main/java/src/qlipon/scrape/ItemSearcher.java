@@ -1,5 +1,7 @@
 package src.qlipon.scrape;
 
+import src.qlipon.scrape.model.WeeklyItem;
+
 import java.util.ArrayList;
 import java.util.List;
 

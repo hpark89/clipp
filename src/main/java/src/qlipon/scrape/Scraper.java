@@ -8,6 +8,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import src.qlipon.scrape.model.WeeklyItem;
 
 
 import java.io.BufferedReader;
@@ -133,7 +134,8 @@ public class Scraper {
           salePriceNonDigit = salePrice.toString();
         }
       }
-      resultList.add( new WeeklyItem( productNameList.get( i ), brandNameList.get( i ), brandNameList.get( i ), salePriceNonDigit , salePrice, "PCC", validDates) );
+      resultList.add( new WeeklyItem( productNameList.get( i ), brandNameList.get( i ), brandNameList.get( i ),
+          "pcc community markets", salePrice, -1, salePriceNonDigit , validDates, validDates, "description" ) );
     }
 
     return resultList;
@@ -195,7 +197,8 @@ public class Scraper {
 
         // they sometimes just have a single number to show the amount of dollars.
         if ( salePrice < 10 ) salePrice *= 100;
-        resultList.add( new WeeklyItem( productName, brandName, categoryName, salePrice.toString() , salePrice, "WHOLEFOODS", validDates) );
+        resultList.add( new WeeklyItem( productName, brandName, categoryName, "whole foods market", salePrice,
+            -1, salePrice.toString(), validDates, validDates, "description" ) );
       }
 
     }
@@ -366,7 +369,8 @@ public class Scraper {
 
       for ( int i=0; i < names.size(); i++ ) {
         //TODO: brandNames, categoryNames, dateRange
-        itemList.add( new WeeklyItem( names.get( i ), "", "", amounts.get( i ).toString(), amounts.get( i ), "HMART", "Not Available" ) );
+        itemList.add( new WeeklyItem( names.get( i ), "", "hmart", "category",
+            amounts.get( i ), -1, amounts.get( i ).toString(), "startDate", "endDate", "description" ) );
       }
 
 
